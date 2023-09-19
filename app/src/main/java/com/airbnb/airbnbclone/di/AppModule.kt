@@ -1,4 +1,4 @@
-package com.airbnb.airbnbclone.data.di
+package com.airbnb.airbnbclone.di
 
 import dagger.Module
 import dagger.Provides

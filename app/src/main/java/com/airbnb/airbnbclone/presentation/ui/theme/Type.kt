@@ -1,4 +1,4 @@
-package com.airbnb.airbnbclone.ui.theme
+package com.airbnb.airbnbclone.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

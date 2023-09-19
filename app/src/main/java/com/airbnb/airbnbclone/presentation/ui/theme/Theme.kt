@@ -1,4 +1,4 @@
-package com.airbnb.airbnbclone.ui.theme
+package com.airbnb.airbnbclone.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

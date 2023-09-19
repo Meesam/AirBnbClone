@@ -1,4 +1,4 @@
-package com.airbnb.airbnbclone.ui.theme
+package com.airbnb.airbnbclone.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
