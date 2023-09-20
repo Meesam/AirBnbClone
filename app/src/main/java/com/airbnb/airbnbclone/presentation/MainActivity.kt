@@ -10,6 +10,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.airbnb.airbnbclone.presentation.listings_list.components.ListingsScreen
 import com.airbnb.airbnbclone.presentation.ui.theme.AirBnbCloneTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +27,12 @@ class MainActivity : ComponentActivity() {
       AirBnbCloneTheme {
         // A surface container using the 'background' color from the theme
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-          Greeting("Meesam")
+          var navController= rememberNavController()
+          NavHost(navController = navController, startDestination = "listings_screen" ){
+            composable("listings_screen"){
+              ListingsScreen(navController)
+            }
+          }
         }
       }
     }
