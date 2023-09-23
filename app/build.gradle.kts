@@ -64,6 +64,10 @@ dependencies {
   androidTestImplementation("androidx.compose.ui:ui-test-junit4")
   debugImplementation("androidx.compose.ui:ui-tooling")
   debugImplementation("androidx.compose.ui:ui-test-manifest")
+  
+  //Get All Material Icons
+  implementation("androidx.compose.material:material-icons-extended:1.6.0-alpha05")
+  
   // HILT Dependency
   implementation("com.google.dagger:hilt-android:2.44")
   kapt("com.google.dagger:hilt-android-compiler:2.44")
@@ -80,6 +84,17 @@ dependencies {
   implementation("androidx.navigation:navigation-compose:2.6.0")
   implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
   implementation("com.squareup.okhttp3:logging-interceptor:4.5.0")
+  
+  // COIL Dependency
+  implementation("io.coil-kt:coil:2.4.0")
+  implementation("io.coil-kt:coil-compose:2.4.0")
+  implementation("io.coil-kt:coil-gif:2.4.0")
+  implementation("io.coil-kt:coil-svg:2.4.0")
+  implementation("io.coil-kt:coil-video:2.4.0")
+  testImplementation("io.coil-kt:coil-test:2.4.0")
+  
+  // Button Group Dependency
+  implementation("com.robertlevonyan.compose:buttontogglegroup:1.1.0")
   
   // VIEW MODEL, LIFE CYCLE Dependency
   val lifecycle_version = "2.6.2"

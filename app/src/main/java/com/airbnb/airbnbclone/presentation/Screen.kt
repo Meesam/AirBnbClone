@@ -1,6 +1,11 @@
 package com.airbnb.airbnbclone.presentation
 
 sealed class Screen(val route:String) {
-  object ListingsScreen:Screen("listings_screen")
-  object ListingDetailsScreen:Screen("listing_screen")
+  object SplashScreen:Screen("splash_screen")
+  object ExploreScreen:Screen("explore")
+  object WishlistScreen:Screen("wishlist")
+  object TripScreen:Screen("trip")
+  object InboxScreen:Screen("inbox")
+  object ProfileScreen:Screen("profile")
+  
 }
