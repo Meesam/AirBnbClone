@@ -19,6 +19,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,10 +30,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.airbnb.airbnbclone.presentation.listings_list.components.ListingItem1
 import com.airbnb.airbnbclone.presentation.listings_list.components.ListingsScreen
+import com.airbnb.airbnbclone.presentation.listings_list.components.SearchDetailedScreen
 import com.airbnb.airbnbclone.presentation.navigation.AppBottomNavigation
 import com.airbnb.airbnbclone.presentation.navigation.BottomNavItem
 import com.airbnb.airbnbclone.presentation.splash_screen.SplashScreen
@@ -71,6 +76,9 @@ class MainActivity : ComponentActivity() {
       }
       composable(Screen.ProfileScreen.route){
         Profile()
+      }
+      composable(Screen.SearchDetailScreen.route){
+        SearchDetailedScreen(navController)
       }
     }
   }
@@ -113,7 +121,15 @@ class MainActivity : ComponentActivity() {
       BottomNavItem(name = "Inbox", route = "inbox", icon = Icons.Default.MailOutline),
       BottomNavItem(name = "Profile", route = "profile", icon = Icons.Default.AccountCircle))
     val navController= rememberNavController()
-    
+    var bottomBarState = rememberSaveable() { (mutableStateOf(true)) }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    when (navBackStackEntry?.destination?.route) {
+      "search-detail-screen" -> {
+        bottomBarState.value = false
+      }
+      else ->
+        bottomBarState.value = true
+    }
     Scaffold(bottomBar = {
       AppBottomNavigation(
         items = navList,
@@ -121,7 +137,9 @@ class MainActivity : ComponentActivity() {
         modifier = Modifier.padding(0.dp),
         onItemClick = {
           navController.navigate(it.route)
-        })
+        },
+        bottomBarState = bottomBarState
+        )
     },
     ) {
       AppNavigation(navController)

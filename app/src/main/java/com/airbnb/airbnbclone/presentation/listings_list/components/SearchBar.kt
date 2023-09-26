@@ -36,10 +36,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import com.airbnb.airbnbclone.presentation.Screen
 
 
 @Composable
-fun SearchBar(){
+fun SearchBar(navController: NavController){
   var expanded by remember { mutableStateOf(false) }
   Box{
    Row(
@@ -59,7 +61,7 @@ fun SearchBar(){
        .padding(10.dp)
        .zIndex(1f)
    ){
-     IconButton(onClick = { expanded = !expanded }) {
+     IconButton(onClick = { navController.navigate(Screen.SearchDetailScreen.route) }) {
        Icon(imageVector = Icons.Outlined.Search , tint = Color.Black , contentDescription = "Search")
      }
      Column() {
@@ -75,7 +77,7 @@ fun SearchBar(){
          fontSize = 10.sp
          )
      }
-     Spacer(modifier = Modifier.width(95.dp))
+     Spacer(modifier = Modifier.width(80.dp))
      Box(contentAlignment= Alignment.Center ,modifier = Modifier
        .border(1.dp, Color.LightGray, shape = CircleShape)
      ) {
@@ -90,5 +92,5 @@ fun SearchBar(){
 @Composable
 @Preview(showBackground = true, heightDp = 500)
 fun SearchPreview(){
-  SearchBar()
+  //SearchBar()
 }

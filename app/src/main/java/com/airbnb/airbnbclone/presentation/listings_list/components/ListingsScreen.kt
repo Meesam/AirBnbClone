@@ -28,7 +28,7 @@ fun ListingsScreen(
   Box(modifier = Modifier.fillMaxSize()){
     Column(modifier = Modifier.fillMaxWidth()) {
       Box(modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 10.dp)){
-         SearchBar()
+         SearchBar(navController)
       }
       Spacer(modifier = Modifier.height(20.dp))
       Box(modifier = Modifier.fillMaxWidth()){
