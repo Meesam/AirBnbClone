@@ -25,7 +25,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.airbnb.airbnbclone.presentation.Screen
 import com.airbnb.airbnbclone.presentation.ui.theme.AirBnbCloneTheme
