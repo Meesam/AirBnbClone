@@ -8,5 +8,6 @@ sealed class Screen(val route:String) {
   object InboxScreen:Screen("inbox")
   object ProfileScreen:Screen("profile")
   object SearchDetailScreen:Screen("search-detail-screen")
+  object MapScreen:Screen("map")
   
 }

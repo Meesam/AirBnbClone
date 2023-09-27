@@ -67,6 +67,10 @@ dependencies {
   
   //Get All Material Icons
   implementation("androidx.compose.material:material-icons-extended:1.6.0-alpha05")
+
+  //Google Map Dependency
+  implementation("com.google.maps.android:maps-compose:2.7.2")
+  implementation("com.google.android.gms:play-services-maps:18.1.0")
   
   // HILT Dependency
   implementation("com.google.dagger:hilt-android:2.44")

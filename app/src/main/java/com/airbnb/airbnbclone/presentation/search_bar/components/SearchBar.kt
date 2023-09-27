@@ -1,4 +1,4 @@
-package com.airbnb.airbnbclone.presentation.listings_list.components
+package com.airbnb.airbnbclone.presentation.search_bar.components
 
 
 import androidx.compose.animation.animateContentSize

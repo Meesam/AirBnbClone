@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.airbnb.airbnbclone.presentation.listings_list.ListingsViewModel
+import com.airbnb.airbnbclone.presentation.search_bar.components.SearchBar
 
 @Composable
 fun ListingsScreen(
@@ -48,4 +49,9 @@ fun ListingsScreen(
       }
     }
   }
+}
+
+@Composable
+fun PricingBlock(){
+
 }

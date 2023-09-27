@@ -2,18 +2,28 @@ package com.airbnb.airbnbclone.presentation
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Map
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -24,22 +34,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.airbnb.airbnbclone.presentation.listings_list.components.ListingItem1
 import com.airbnb.airbnbclone.presentation.listings_list.components.ListingsScreen
-import com.airbnb.airbnbclone.presentation.listings_list.components.SearchDetailedScreen
+import com.airbnb.airbnbclone.presentation.map.MapScreen
+import com.airbnb.airbnbclone.presentation.search_bar.components.SearchDetailedScreen
 import com.airbnb.airbnbclone.presentation.navigation.AppBottomNavigation
 import com.airbnb.airbnbclone.presentation.navigation.BottomNavItem
 import com.airbnb.airbnbclone.presentation.splash_screen.SplashScreen
 import com.airbnb.airbnbclone.presentation.ui.theme.AirBnbCloneTheme
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -79,6 +88,9 @@ class MainActivity : ComponentActivity() {
       }
       composable(Screen.SearchDetailScreen.route){
         SearchDetailedScreen(navController)
+      }
+      composable(Screen.MapScreen.route){
+        MapScreen()
       }
     }
   }
@@ -122,13 +134,26 @@ class MainActivity : ComponentActivity() {
       BottomNavItem(name = "Profile", route = "profile", icon = Icons.Default.AccountCircle))
     val navController= rememberNavController()
     var bottomBarState = rememberSaveable() { (mutableStateOf(true)) }
+    var fabVisibility= rememberSaveable() { (mutableStateOf(false)) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute= navController.currentDestination?.route.toString()
     when (navBackStackEntry?.destination?.route) {
       "search-detail-screen" -> {
         bottomBarState.value = false
+        fabVisibility.value = false
       }
-      else ->
+      "explore" -> {
+        fabVisibility.value = true
         bottomBarState.value = true
+      }
+      "map" ->{
+        bottomBarState.value = false
+        fabVisibility.value = true
+      }
+      else ->{
+        bottomBarState.value = true
+        fabVisibility.value = false
+      }
     }
     Scaffold(bottomBar = {
       AppBottomNavigation(
@@ -141,6 +166,35 @@ class MainActivity : ComponentActivity() {
         bottomBarState = bottomBarState
         )
     },
+      floatingActionButton = {
+        AnimatedVisibility(
+          visible = fabVisibility.value,
+          enter = slideInVertically(initialOffsetY = { it }),
+          exit = slideOutVertically(targetOffsetY = { it })
+        ){
+          ExtendedFloatingActionButton(
+            onClick = {
+              if(currentRoute ==="map") {
+                navController.navigate(Screen.ExploreScreen.route)
+              }else {
+                navController.navigate(Screen.MapScreen.route)
+              }
+            },
+            icon ={
+                if(currentRoute ==="map") {
+                  Icon(Icons.Outlined.Search, "Search")
+                }else{
+                 Icon(Icons.Outlined.Map, "Map")
+                }
+             },
+            text = { Text(text = if (currentRoute ==="map") "Explore"  else "Map") },
+            containerColor= Color.Black,
+            contentColor = Color.White,
+            shape = RoundedCornerShape(40.dp)
+          )
+        }
+      },
+      floatingActionButtonPosition = FabPosition.Center
     ) {
       AppNavigation(navController)
     }
